@@ -99,7 +99,7 @@ public class Worker {
 	public void setInput(String input) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(input));
 		String line = reader.readLine();
-		ArrayList<float[]> lines = new ArrayList<>();
+		ArrayList<float[]> lines = new ArrayList<float[]>();
 
 		while (line != null) {
 			line = line.trim();
