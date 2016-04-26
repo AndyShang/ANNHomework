@@ -7,6 +7,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import ann.homework.neuroph.NeurophPerceptronSample;
 import ann.homework.or.ORWorker;
 
 public class Homework {
@@ -73,6 +74,8 @@ public class Homework {
 	private Worker getWorker(String chapter) {
 		if (chapter.equals("01"))
 			return new ORWorker();
+		if(chapter.equals("03"))
+			return new NeurophPerceptronSample();
 		return null;
 	}
 }

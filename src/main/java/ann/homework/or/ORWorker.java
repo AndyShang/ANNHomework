@@ -1,13 +1,12 @@
 package ann.homework.or;
 
-import ann.homework.Worker;
 
-public class ORWorker extends Worker {
+public class ORWorker extends CustomNNWorker {
 
-	public float run(float[] p) {
-		float sum = 0f;
-		float[] a = new float[p.length];
-		float out;
+	public double run(double[] p) {
+		double sum = 0f;
+		double[] a = new double[p.length];
+		double out;
 		for (int i = 0; i < p.length; i++) {
 			a[i] = w[i] * p[i] + b;
 			sum += a[i];
@@ -16,15 +15,15 @@ public class ORWorker extends Worker {
 		return out;
 	}
 
-	public void train(float p[], float exp) {
-		float e = exp - run(p);
+	public void train(double p[], double exp) {
+		double e = exp - run(p);
 		for (int i = 0; i < p.length; i++) {
 			w[i] = w[i] + e * p[i];
 			b += e;
 		}
 	}
 
-	public float t(float value) {
+	public float t(double value) {
 		return value > 0 ? 1f : 0f;
 	}
 }
