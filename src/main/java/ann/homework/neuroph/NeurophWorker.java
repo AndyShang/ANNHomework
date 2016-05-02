@@ -66,7 +66,7 @@ public class NeurophWorker extends Worker {
 
 	public void train(double p[], double[] exp) {
 		if (trainning == null)
-			trainning = new DataSet(p.length, 1);
+			trainning = new DataSet(p.length, exp.length);
 		trainning.addRow(new DataSetRow(p, exp));
 	}
 
