@@ -70,7 +70,21 @@ public class NeurophWorker extends Worker {
 		trainning.addRow(new DataSetRow(p, exp));
 	}
 
-	public float t(float value) {
-		return value > 0 ? 1f : 0f;
+	public void printWeight() {
+		Neuron[] neurons = nn.getOutputNeurons();
+		for (int i = 0; i < neurons.length; i++) {
+			Connection[] inputConnections = neurons[i].getInputConnections();
+			double[] weights = new double[inputConnections.length];
+			System.out.print("µÚ" + (i + 1) + "×éw:\n");
+			for (int j = 0; j < inputConnections.length; j++) {
+				weights[j] = inputConnections[j].getWeight().getValue();
+				System.out.print(weights[j]);
+				if (j < inputConnections.length - 1) {
+					System.out.print(", ");
+				}
+			}
+			System.out.print("\n");
+		}
+		System.out.print("=============================== \n");
 	}
 }

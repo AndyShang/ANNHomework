@@ -33,11 +33,12 @@ public class ClassifyQuadrant extends NeurophWorker implements
 				}
 			}
 		});
+		nn.getLearningRule().addListener(this);
 		return nn;
 	}
 
 	@Override
 	public void handleLearningEvent(LearningEvent event) {
-		System.out.println(event.toString());
+		printWeight();
 	}
 }
