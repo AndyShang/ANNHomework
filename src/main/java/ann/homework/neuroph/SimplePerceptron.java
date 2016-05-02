@@ -2,6 +2,7 @@ package ann.homework.neuroph;
 
 import org.neuroph.core.Layer;
 import org.neuroph.core.NeuralNetwork;
+import org.neuroph.core.learning.LearningRule;
 import org.neuroph.nnet.comp.neuron.BiasNeuron;
 import org.neuroph.nnet.comp.neuron.ThresholdNeuron;
 import org.neuroph.nnet.learning.BinaryDeltaRule;
@@ -14,7 +15,7 @@ import org.neuroph.util.NeuronProperties;
 import org.neuroph.util.TransferFunctionType;
 
 @SuppressWarnings("serial")
-public class SimplePerceptron extends NeuralNetwork<LMS> {
+public class SimplePerceptron extends NeuralNetwork<LearningRule> {
 	public SimplePerceptron(int inputNeuronsCount, int outputNeuronsCount) {
 		createNetwork(inputNeuronsCount, outputNeuronsCount);
 	}

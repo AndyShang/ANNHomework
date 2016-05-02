@@ -17,8 +17,8 @@ public class ORWorker extends CustomNNWorker {
 		return new double[] { out };
 	}
 
-	public void train(double p[], double exp) {
-		double e = exp - run(p)[0];
+	public void train(double p[], double[] exp) {
+		double e = exp[0] - run(p)[0];
 		for (int i = 0; i < p.length; i++) {
 			w[i] = w[i] + e * p[i];
 			b += e;
