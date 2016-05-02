@@ -1,9 +1,11 @@
 package ann.homework.or;
 
-
 public class ORWorker extends CustomNNWorker {
 
-	public double run(double[] p) {
+	public ORWorker() {
+	}
+
+	public double[] run(double[] p) {
 		double sum = 0f;
 		double[] a = new double[p.length];
 		double out;
@@ -12,11 +14,11 @@ public class ORWorker extends CustomNNWorker {
 			sum += a[i];
 		}
 		out = t(sum);
-		return out;
+		return new double[] { out };
 	}
 
 	public void train(double p[], double exp) {
-		double e = exp - run(p);
+		double e = exp - run(p)[0];
 		for (int i = 0; i < p.length; i++) {
 			w[i] = w[i] + e * p[i];
 			b += e;
