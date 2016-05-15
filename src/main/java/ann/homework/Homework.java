@@ -1,6 +1,5 @@
 package ann.homework;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
@@ -12,6 +11,8 @@ import org.neuroph.util.TrainingSetImport;
 
 import ann.homework.neuroph.ClassifyQuadrant;
 import ann.homework.neuroph.NeurophPerceptronSample;
+import ann.homework.neuroph.NeurophWorker;
+import ann.homework.neuroph.NumberRecognition;
 import ann.homework.or.ORWorker;
 
 public class Homework {
@@ -48,7 +49,7 @@ public class Homework {
 		Worker worker = null;
 		int inputsCount = defaultInputCount;
 		int outputsCount = defaultOutputCount;
-		DataSet data;
+		DataSet data = null;
 
 		if (line.hasOption('h')) {
 			help();
@@ -71,14 +72,19 @@ public class Homework {
 			return;
 		}
 		worker = getWorker(chapter);
-		try {
-			data = TrainingSetImport.importFromFile(input, inputsCount,
-					outputsCount, ",");
-		} catch (NumberFormatException | IOException e1) {
-			help();
-			return;
+		if (worker.inputRequired) {
+			try {
+				data = TrainingSetImport.importFromFile(input, inputsCount,
+						outputsCount, ",");
+			} catch (NumberFormatException | IOException e1) {
+				help();
+				return;
+			}
+			worker.setData(data);
 		}
-		worker.setData(data);
+		if (worker instanceof NeurophWorker) {
+			((NeurophWorker) worker).createNN(data);
+		}
 		if (line.hasOption('t')) {
 			worker.train();
 			worker.save();
@@ -95,6 +101,8 @@ public class Homework {
 			return new NeurophPerceptronSample();
 		if (chapter.equals("04"))
 			return new ClassifyQuadrant();
+		if (chapter.equals("05"))
+			return new NumberRecognition();
 		return null;
 	}
 }

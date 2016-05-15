@@ -6,6 +6,7 @@ import org.neuroph.core.data.DataSetRow;
 public class Worker {
 
 	protected DataSet dataset;
+	public boolean inputRequired = true;
 
 	public void run() {
 		DataSetRow row;

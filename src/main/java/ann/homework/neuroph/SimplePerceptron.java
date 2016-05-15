@@ -6,7 +6,6 @@ import org.neuroph.core.learning.LearningRule;
 import org.neuroph.nnet.comp.neuron.BiasNeuron;
 import org.neuroph.nnet.comp.neuron.ThresholdNeuron;
 import org.neuroph.nnet.learning.BinaryDeltaRule;
-import org.neuroph.nnet.learning.LMS;
 import org.neuroph.util.ConnectionFactory;
 import org.neuroph.util.LayerFactory;
 import org.neuroph.util.NeuralNetworkFactory;

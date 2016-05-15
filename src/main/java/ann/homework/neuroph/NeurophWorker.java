@@ -13,24 +13,31 @@ import ann.homework.utils.WeightFile;
 
 public class NeurophWorker extends Worker {
 
+	private NeuralNetwork nn;
 	DataSet trainning;
-	NeuralNetwork<LearningRule> nn;
 	private WeightFile weightFile;
 
 	@SuppressWarnings("serial")
 	@Override
 	public void setData(DataSet data) {
 		super.setData(data);
-		nn = createNN(data);
 	}
 
-	protected NeuralNetwork<LearningRule> createNN(DataSet data) {
-		// TODO Auto-generated method stub
+	public NeuralNetwork getNetwork() {
+		return nn;
+	}
+
+	public void setNetwork(NeuralNetwork nn) {
+		this.nn = nn;
+	}
+
+	public NeuralNetwork<LearningRule> createNN(DataSet data) {
 		return null;
 	}
 
 	@Override
 	public double[] run(double[] p) {
+		NeuralNetwork nn = getNetwork();
 		nn.setInput(p);
 		nn.calculate();
 		return nn.getOutput();
@@ -38,6 +45,7 @@ public class NeurophWorker extends Worker {
 
 	public void load() {
 		weightFile = WeightFile.load();
+		NeuralNetwork nn = getNetwork();
 		Neuron[] neurons = nn.getOutputNeurons();
 		for (int i = 0; i < neurons.length; i++) {
 			double[] weights = weightFile.getWeights(i);
@@ -49,6 +57,7 @@ public class NeurophWorker extends Worker {
 	}
 
 	public void save() {
+		NeuralNetwork nn = getNetwork();
 		nn.learn(trainning);
 		//
 		weightFile = new WeightFile();
@@ -71,6 +80,7 @@ public class NeurophWorker extends Worker {
 	}
 
 	public void printWeight() {
+		NeuralNetwork nn = getNetwork();
 		Neuron[] neurons = nn.getOutputNeurons();
 		for (int i = 0; i < neurons.length; i++) {
 			Connection[] inputConnections = neurons[i].getInputConnections();

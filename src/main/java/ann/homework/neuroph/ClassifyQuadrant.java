@@ -15,11 +15,10 @@ public class ClassifyQuadrant extends NeurophWorker implements
 		LearningEventListener {
 
 	@Override
-	protected NeuralNetwork<LearningRule> createNN(DataSet data) {
+	public NeuralNetwork<LearningRule> createNN(DataSet data) {
 
 		NeuralNetwork<LearningRule> nn = new SimplePerceptron(
 				data.getInputSize(), 2);
-		nn.getLayerAt(0).addNeuron(new BiasNeuron());
 		nn.setLearningRule(new LMS() {
 			@Override
 			public void updateNeuronWeights(Neuron neuron) {
@@ -34,6 +33,7 @@ public class ClassifyQuadrant extends NeurophWorker implements
 			}
 		});
 		nn.getLearningRule().addListener(this);
+		setNetwork(nn);
 		return nn;
 	}
 
