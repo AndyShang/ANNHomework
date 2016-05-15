@@ -42,7 +42,7 @@ public class NumberRecognition extends NeurophWorker implements
 			int j = 0;
 			System.out.print("½á¹û:");
 			for (j = 0; j < result.length; j++) {
-				if (result[j] > 0.9d) {
+				if (result[j] > 0.5d) {
 					System.out.println(j + "\n================\n");
 					break;
 				}
@@ -80,7 +80,7 @@ public class NumberRecognition extends NeurophWorker implements
 			}
 		});
 		nn.getLearningRule().addListener(this);
-		((IterativeLearning) nn.getLearningRule()).setLearningRate(0.001d);
+		((IterativeLearning) nn.getLearningRule()).setLearningRate(0.01d);
 		setNetwork(nn);
 		return nn;
 	}
