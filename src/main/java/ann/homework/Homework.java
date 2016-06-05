@@ -13,6 +13,7 @@ import ann.homework.neuroph.ClassifyQuadrant;
 import ann.homework.neuroph.NeurophPerceptronSample;
 import ann.homework.neuroph.NeurophWorker;
 import ann.homework.neuroph.NumberRecognition;
+import ann.homework.neuroph.PatternRecog;
 import ann.homework.neuroph.StockHomework;
 import ann.homework.or.ORWorker;
 
@@ -106,6 +107,8 @@ public class Homework {
 			return new NumberRecognition();
 		if (chapter.equals("07"))
 			return new StockHomework();
+		if (chapter.equals("08"))
+			return new PatternRecog();
 		return null;
 	}
 }

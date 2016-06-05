@@ -45,15 +45,8 @@ public class StockHomework extends NeurophWorker implements
 		for (int i = 30; i < 40; i++) {
 			double[] result = run(new double[] { i + 0d });
 			System.out.println("输入:");
-			Numbers.print(i);
-			int j = 0;
-			System.out.print("结果:");
-			int num = 0;
-			for (j = 0; j < result.length; j++) {
-				if (result[j] > 0.5d)
-					num += 1 << (3 - j);
-			}
-			System.out.println(num + "");
+			System.out.println(i + "");
+			System.out.print("结果:" + result[0] + "\n");
 		}
 	}
 

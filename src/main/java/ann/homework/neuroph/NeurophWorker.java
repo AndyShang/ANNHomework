@@ -78,6 +78,12 @@ public class NeurophWorker extends Worker {
 			trainning = new DataSet(p.length, exp.length);
 		trainning.addRow(new DataSetRow(p, exp));
 	}
+	
+	public void train(int size, DataSetRow row) {
+		if (trainning == null)
+			trainning = new DataSet(size);
+		trainning.addRow(row);
+	}
 
 	public void printWeight() {
 		NeuralNetwork nn = getNetwork();
