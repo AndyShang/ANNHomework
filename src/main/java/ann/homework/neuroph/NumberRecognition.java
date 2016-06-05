@@ -30,7 +30,6 @@ public class NumberRecognition extends NeurophWorker implements
 
 	@Override
 	public void run() {
-		NeuralNetwork nn = getNetwork();
 		dataset = Numbers.getTrainData();
 		DataSetRow row;
 		for (int i = 0; i < dataset.getRows().size(); i++) {
@@ -41,31 +40,33 @@ public class NumberRecognition extends NeurophWorker implements
 			Numbers.print(i);
 			int j = 0;
 			System.out.print("½á¹û:");
+			int num = 0;
 			for (j = 0; j < result.length; j++) {
-				if (result[j] > 0.5d) {
-					System.out.println(j + "\n================\n");
-					break;
-				}
+				if (result[j] > 0.5d)
+					num += 1 << (3 - j);
 			}
+			System.out.println(num + "");
 		}
 	}
 
 	@Override
 	public void train() {
-		for (int i = 0; i < 10; i++) {
-			double[] expected = new double[10];
-			for (int j = 0; j < expected.length; j++) {
-				expected[j] = -1;
-			}
-			expected[i] = 1;
-			train(Numbers.getTrainDataRow(i), expected);
-		}
+		train(Numbers.getTrainDataRow(0), new double[] { 0, 0, 0, 0 });
+		train(Numbers.getTrainDataRow(1), new double[] { 0, 0, 0, 1 });
+		train(Numbers.getTrainDataRow(2), new double[] { 0, 0, 1, 0 });
+		train(Numbers.getTrainDataRow(3), new double[] { 0, 0, 1, 1 });
+		train(Numbers.getTrainDataRow(4), new double[] { 0, 1, 0, 0 });
+		train(Numbers.getTrainDataRow(5), new double[] { 0, 1, 0, 1 });
+		train(Numbers.getTrainDataRow(6), new double[] { 0, 1, 1, 0 });
+		train(Numbers.getTrainDataRow(7), new double[] { 0, 1, 1, 1 });
+		train(Numbers.getTrainDataRow(8), new double[] { 1, 0, 0, 0 });
+		train(Numbers.getTrainDataRow(9), new double[] { 1, 0, 0, 1 });
 	}
 
 	@SuppressWarnings({ "serial", "unchecked", "rawtypes" })
 	@Override
 	public NeuralNetwork<LearningRule> createNN(DataSet data) {
-		NeuralNetwork nn = createNetwork(35, 10);
+		NeuralNetwork nn = createNetwork(35, 4);
 		nn.setLearningRule(new LMS() {
 			@Override
 			public void updateNeuronWeights(Neuron neuron) {
@@ -88,14 +89,14 @@ public class NumberRecognition extends NeurophWorker implements
 	@SuppressWarnings("rawtypes")
 	private NeuralNetwork createNetwork(int inputSize, int outputSize) {
 		NeuralNetwork nn = new NeuralNetwork();
-//		type seems not used at all
-//		nn.setNetworkType(NeuralNetworkType.ADALINE);
+		// type seems not used at all
+		// nn.setNetworkType(NeuralNetworkType.ADALINE);
 
 		NeuronProperties inProp = new NeuronProperties();
 		inProp.setProperty("transferFunction", TransferFunctionType.LINEAR);
 		Layer inputLayer = LayerFactory.createLayer(inputSize, inProp);
 		inputLayer.addNeuron(new BiasNeuron());
-		
+
 		NeuronProperties outProp = new NeuronProperties();
 		outProp.setProperty("transferFunction", TransferFunctionType.RAMP);
 		outProp.setProperty("transferFunction.slope", 1d);
